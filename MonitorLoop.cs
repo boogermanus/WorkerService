@@ -5,7 +5,6 @@ public class MonitorLoop
     private IBackgroundTaskQueue _taskQueue;
     private ILogger<MonitorLoop> _logger;
     private IHostApplicationLifetime _applicationLifetime;
-
     private readonly CancellationToken _cancellationToken;
 
     public MonitorLoop(IBackgroundTaskQueue taskQueue,
@@ -49,11 +48,11 @@ public class MonitorLoop
 
         _logger.LogInformation("Queued work item {Guid} is starting.", guid);
 
-        while (!token.IsCancellationRequested && delayLoop < 10)
+        while (!token.IsCancellationRequested && delayLoop < 3)
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(10), token);
+                await Task.Delay(TimeSpan.FromSeconds(5), token);
             }
             catch (OperationCanceledException)
             {
@@ -65,7 +64,7 @@ public class MonitorLoop
             _logger.LogInformation("Queued work item {Guid} is running. {DelayLoop}/3", guid, delayLoop);
         }
 
-        if (delayLoop is 10)
+        if (delayLoop is 3)
         {
             _logger.LogInformation("Queued Background Task {Guid} is complete.", guid);
         }
