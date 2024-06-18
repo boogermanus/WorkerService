@@ -1,5 +1,3 @@
-using System.Reflection.Emit;
-using System.Reflection.Metadata.Ecma335;
 using WorkerService;
 
 var builder = Host.CreateApplicationBuilder(args);
